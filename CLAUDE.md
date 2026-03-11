@@ -2,45 +2,31 @@
 
 Rapid web app prototyping. User describes what they want, you build it.
 
-## Stack
-Python, FastAPI, uvicorn (hot reload), Jinja2, cloudflared (tunnel), Playwright (screenshots)
-
-## Python Environment
-Always use `.venv/`. Run commands with `.venv/bin/python`, `.venv/bin/pip`, `.venv/bin/uvicorn`.
-
-## First Session
-If `main.py` doesn't exist, run `/setup` before anything else. It handles git, venv, deps, and starter files.
+## Environment
+- Python venv: `.venv/bin/python`, `.venv/bin/pip`, `.venv/bin/uvicorn`
+- Logs: `/tmp/uvicorn.log`, `/tmp/cloudflared.log`
+- Screenshots: `/tmp/screenshot.png`
+- Use `logging` module, never `print()`
 
 ## Skills
-- `/setup` — First-time project initialization (run once, creates everything)
-- `/vibe` — Start server + public tunnel + screenshot verification
+| Command | When to use |
+|---------|------------|
+| `/setup` | No `main.py` exists — first-time init (git, venv, deps, starter files) |
+| `/vibe` | Start local server + cloudflared tunnel + screenshot verify |
+| `/deploy-infra` | One-time EC2 setup (first deploy ever) |
+| `/deploy` | Push current project to EC2 for persistent hosting |
+| `/status` | Check EC2 instance, deployed apps, service health, disk/memory |
+| `/check` | Quick AWS resource inventory (works even if instance is down) |
+| `/teardown` | Remove an app or destroy all EC2 infrastructure |
 
 ## Workflow
-**edit → auto-commit → hot-reload → verify**
-1. Edit files normally — the auto-commit hook (`.claude/hooks/auto-commit.sh`) stages and commits after every Edit/Write
+**edit -> auto-commit -> hot-reload -> verify**
+1. Edit files — hook auto-commits after every Edit/Write (`auto: update <filename>`)
 2. uvicorn `--reload` picks up changes instantly
-3. After significant changes, screenshot with Playwright to verify
+3. Screenshot with Playwright after significant changes to verify visually
 
-## File Layout
-| Path | Purpose |
-|------|---------|
-| `main.py` | FastAPI entry point (routes, auth middleware, logging) |
-| `templates/base.html` | HTML layout (`{% block content %}`) |
-| `templates/*.html` | Page templates extending base |
-| `static/` | CSS, JS, images (served at `/static/`) |
-| `requirements.txt` | Python deps |
-
-## Logging
-- Routes use Python `logging` module, never `print()`
-- Server logs: `/tmp/uvicorn.log`
-- Tunnel logs: `/tmp/cloudflared.log`
-- Always tell the user what you're doing — no silent operations
-
-## Debugging
-On errors: read `/tmp/uvicorn.log` → screenshot the error page → diagnose → fix → re-screenshot to confirm
-
-## Screenshots
-Take Playwright screenshots after: new/modified routes, template/style edits, error fixes, or when user asks.
+## Playwright Screenshots
+Take after: new/modified routes, template/style edits, error fixes, or when asked.
 ```bash
 .venv/bin/python -c "
 from playwright.sync_api import sync_playwright
@@ -55,45 +41,27 @@ with sync_playwright() as p:
 ```
 Read `/tmp/screenshot.png` and describe what you see.
 
-## Auth
-Tunnel protected with basic auth (default `demo`/`demo`). Localhost bypasses auth.
+## Debugging
+Read `/tmp/uvicorn.log` -> screenshot the error page -> diagnose -> fix -> re-screenshot to confirm.
 
 ## Git
-- Auto-commits via hook: `auto: update <filename>`
-- Manual milestone commits at logical points: `git add -A && git commit -m "feat: description"`
+- Auto-commits via hook (async, never blocks)
+- Milestone commits: `git add -A && git commit -m "feat: description"`
 - Prefixes: `feat:`, `fix:`, `refactor:`, `style:`, `docs:`
+- Rollback: `git log --oneline -10`, `git reset --soft HEAD~1`, `git checkout <hash> -- <file>`
+- Always explain rollbacks before executing
 
-## Rollback
-```bash
-git log --oneline -10                        # history
-git diff <hash>^ <hash>                      # inspect commit
-git reset --soft HEAD~1                      # undo last commit
-git checkout <hash> -- <file>                # restore file
-```
-Always explain rollbacks to the user before executing.
+## File Layout
+`main.py` (FastAPI app) | `templates/base.html` + `templates/*.html` | `static/` | `requirements.txt`
+
+## Auth
+- Tunnel: basic auth `demo`/`demo` (localhost bypasses)
+- EC2: no auth needed (VPN-protected)
 
 ## EC2 Deployment
-
-Deploy prototypes to a shared EC2 instance for persistent hosting. Multiple apps share one t3.micro via Nginx reverse proxy, accessible at `http://<app>.X.X.X.X.nip.io`.
-
-### Skills
-- `/deploy-infra` — One-time EC2 setup (instance, security group, Elastic IP, bootstrap)
-- `/deploy` — Deploy current project to EC2 (rsync, systemd, nginx, basic auth)
-- `/status` — Show instance info, deployed apps, service health, disk/memory
-- `/teardown` — Remove a single app or destroy all infrastructure
-- `/check` — Quick overview of all AWS resources and deployed apps (no SSH needed if instance is down)
-
-### How It Works
-- **Nginx** reverse proxy on port 80, per-app server blocks routing `<app>.IP.nip.io` to `127.0.0.1:<port>`
-- **nip.io** provides wildcard DNS: `app.1.2.3.4.nip.io` resolves to `1.2.3.4`
-- **systemd** service per app (`vibe-<app>.service`) with auto-restart
-- **manifest.json** at `/opt/apps/manifest.json` tracks all deployed apps, ports, and metadata
-- Apps bind to `127.0.0.1` only (no direct port access from internet)
-- No basic auth on EC2 — instances are VPN-protected
-- SSH via user-data key injection (uses `~/.ssh/id_ed25519.pub`), key pair `intandem-developer-ai-us-east-2`
-- No Elastic IP (IAM restriction) — public IP may change on instance stop/start
-
-### AWS
-- Profile: `dev-ai` (us-east-2)
+- AWS profile `dev-ai`, region `us-east-2`, key pair `intandem-developer-ai-us-east-2`
+- SSH via user-data key injection (`~/.ssh/id_ed25519.pub`)
+- No Elastic IP — public IP may change on instance stop/start
 - Re-login: `aws sso login --profile dev-ai`
-- Resources tagged: `vibe-code-host`, `vibe-code-eip`, `vibe-code-sg`, `vibe-code-key`
+- Nginx reverse proxy, systemd services, manifest at `/opt/apps/manifest.json`
+- URL pattern: `http://<app-name>.<ip>.nip.io`
