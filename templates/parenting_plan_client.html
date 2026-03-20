@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Parenting Plan — Client Review{% endblock %}
+
+{% block body %}
+<!-- Client Header Banner -->
+<div class="client-header">
+    <h1>OurFamilyWizard</h1>
+    <p>Parenting Plan — Client Review</p>
+</div>
+
+<!-- Client Container -->
+<div class="client-container">
+
+    <!-- Intro Card -->
+    <div class="plan-section-card" style="margin-bottom: 24px;">
+        <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.7;">
+            Your attorney has shared this parenting plan for your review.
+            Please fill in your sections below.
+        </p>
+    </div>
+
+    <!-- Client Response Form -->
+    <form method="POST" action="">
+        {% for section in sections %}
+        <div class="plan-section-card">
+            <div class="plan-section-title">{{ section }}</div>
+
+            {% if plan.sections.get(section) %}
+            <div class="form-group">
+                <label class="form-label">Attorney's notes:</label>
+                <div style="background: var(--bg-page); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 12px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; white-space: pre-wrap;">{{ plan.sections[section] }}</div>
+            </div>
+            {% endif %}
+
+            <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" for="client_{{ loop.index }}">Your input:</label>
+                <textarea class="form-input" id="client_{{ loop.index }}" name="client_{{ section }}" rows="4" placeholder="Enter your notes or additions here..."></textarea>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Form Actions -->
+        <div class="form-actions" style="margin-bottom: 40px;">
+            <button type="submit" class="btn btn-primary">Save My Responses</button>
+            <a href="javascript:history.back()" class="btn btn-outline">Back</a>
+        </div>
+    </form>
+
+</div>
+
+<!-- Simple Footer -->
+<div style="text-align: center; padding: 24px; font-size: 12px; color: var(--text-muted);">
+    Copyright &copy; 2000 - 2026 OurFamilyWizard.com&reg; Patented and Patents Pending
+</div>
+{% endblock body %}

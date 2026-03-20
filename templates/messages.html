@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Messages - OFW Pro{% endblock %}
+
+{% block content %}
+<div class="messages-layout">
+
+    <!-- Left Sidebar -->
+    <div class="msg-sidebar">
+        <div class="msg-sidebar-header">
+            <button class="btn btn-primary" style="width:100%;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Create Message
+            </button>
+        </div>
+
+        <a class="sidebar-item active" href="#">
+            <span>Inbox</span>
+            {% if inbox_count %}<span class="sidebar-badge">{{ inbox_count }}</span>{% endif %}
+        </a>
+        <a class="sidebar-item" href="#">
+            <span>Action Items</span>
+            {% if action_items_count %}<span class="sidebar-badge">{{ action_items_count }}</span>{% endif %}
+        </a>
+        <a class="sidebar-item" href="#">
+            <span>Notifications</span>
+            {% if notifications_count %}<span class="sidebar-badge">{{ notifications_count }}</span>{% endif %}
+        </a>
+        <a class="sidebar-item" href="#">Sent</a>
+        <a class="sidebar-item" href="#">Drafts</a>
+        <a class="sidebar-item" href="#">Archived</a>
+        <a class="sidebar-item" href="#">All Messages</a>
+
+        <div class="sidebar-divider"></div>
+
+        <button class="sidebar-toggle">
+            <span>My Folders</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <button class="sidebar-toggle">
+            <span>Last Viewed</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+    </div>
+
+    <!-- Message List Panel -->
+    <div class="msg-list-panel">
+        <div class="msg-list-header">
+            <div class="msg-list-actions">
+                <button class="btn-icon" title="Filter">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                </button>
+                <button class="btn-icon" title="Download">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+                <button class="btn-icon" title="List view">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="msg-pagination">
+                <button title="Previous">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <span>1 - {{ messages|length if messages else 1 }}</span>
+                <button title="Next">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="msg-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" placeholder="Search Inbox...">
+        </div>
+
+        {% for msg in messages %}
+        <div class="msg-item">
+            <div class="msg-unread-dot {% if not msg.unread %}read{% endif %}"></div>
+            <div class="msg-item-content">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                    <span class="msg-item-sender">{{ msg.sender }}</span>
+                    <span class="msg-item-date">{{ msg.date }}</span>
+                </div>
+                <div class="msg-item-subject">{{ msg.subject }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Detail Panel -->
+    <div class="msg-detail-panel">
+        <div class="msg-empty-state">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <h2>No Message Selected</h2>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

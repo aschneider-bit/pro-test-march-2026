@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - OFW Pro{% endblock %}
+
+{% block content %}
+<div class="page-layout">
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Families</div>
+            {% if families %}
+                {% for family in families %}
+                <a href="/family/{{ family.id }}" class="sidebar-item">
+                    <span>{{ family.name }}</span>
+                    {% if family.unread %}
+                    <span class="sidebar-badge">{{ family.unread }}</span>
+                    {% endif %}
+                </a>
+                {% endfor %}
+            {% else %}
+                <div style="padding: 8px 16px; font-size: 13px; color: var(--text-muted);">No families yet</div>
+            {% endif %}
+        </div>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-section">
+            <a href="/family/add" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Add Family
+            </a>
+        </div>
+
+        <div class="sidebar-section">
+            <a href="/family/link" class="btn btn-outline" style="width: 100%; justify-content: center;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+                Link to Existing Family
+            </a>
+        </div>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-section">
+            <a href="/profile" class="sidebar-item">
+                <span>Update My Profile</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Dashboard Cards Row -->
+        <div class="dashboard-cards">
+
+            <!-- Messages Card -->
+            <div class="dash-card">
+                <div class="dash-card-title">Messages</div>
+                <div class="dash-card-body">
+                    {% if unread_messages > 0 %}
+                    <p>You have <strong>{{ unread_messages }}</strong> unread message{{ 's' if unread_messages != 1 else '' }}.</p>
+                    {% else %}
+                    <p>You have no unread messages.</p>
+                    {% endif %}
+                </div>
+                <div class="dash-card-link">
+                    <a href="/messages">Go to Messages &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Access Requests Card -->
+            <div class="dash-card">
+                <div class="dash-card-title">Access Requests</div>
+                <div class="dash-card-body">
+                    <p><strong>0</strong> pending access requests.</p>
+                    <p style="font-size: 13px; color: var(--text-muted);">Requests from families will appear here.</p>
+                </div>
+                <div class="dash-card-link">
+                    <a href="/access-requests">View Requests &rarr;</a>
+                </div>
+            </div>
+
+            <!-- OFW for Practitioners Card -->
+            <div class="dash-card">
+                <div class="dash-card-title">OurFamilyWizard for Practitioners</div>
+                <div class="dash-card-body">
+                    <p>OurFamilyWizard helps practitioners stay connected with the families they serve through secure messaging, shared calendars, and expense tracking.</p>
+                </div>
+                <div class="dash-card-link">
+                    <a href="https://www.ourfamilywizard.com/practitioners" target="_blank">Learn more &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Resources Section -->
+        <div class="resources-section card">
+            <div class="card-header">
+                <span class="card-title">Resources</span>
+            </div>
+            <div class="card-body">
+                <div class="resources-text">
+                    <h3>Welcome for Practitioners</h3>
+                    <p>
+                        As a practitioner on OurFamilyWizard, you have access to tools designed to help you
+                        support co-parenting families more effectively. Use the dashboard to manage your
+                        connected families, communicate securely through the messaging system, and stay
+                        up to date with shared calendars and expense logs.
+                    </p>
+                    <h3 style="margin-top: 16px;">Tips &amp; Tricks</h3>
+                    <p>
+                        Get the most out of OurFamilyWizard by exploring our practitioner guides. Learn how
+                        to add families to your account, review shared parenting schedules, and leverage
+                        the platform's tools to provide better support during custody and co-parenting cases.
+                    </p>
+                    <div style="margin-top: 12px;">
+                        <a href="/resources/guides" class="btn btn-outline btn-sm">View Practitioner Guides</a>
+                    </div>
+                </div>
+                <div class="resources-img">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+                        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+{% endblock %}

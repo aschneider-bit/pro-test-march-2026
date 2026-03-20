@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Parenting Plan - OFW Pro{% endblock %}
+
+{% block content %}
+<div class="page-layout">
+    <div class="main-content content-full">
+
+        <div class="plan-header">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <h1>Parenting Plan</h1>
+                <span class="plan-status {{ plan.status }}">
+                    {% if plan.status == 'draft' %}Draft{% elif plan.status == 'sent' %}Sent{% else %}{{ plan.status|capitalize }}{% endif %}
+                </span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <form method="POST" action="/parenting-plan/{{ plan.id }}/send" style="display: inline;">
+                    <button type="submit" class="btn btn-outline">Send to Client</button>
+                </form>
+                <a href="/parenting-plan/{{ plan.id }}/generate" class="btn btn-primary">Generate Document</a>
+            </div>
+        </div>
+
+        <div class="plan-sections">
+
+            <!-- Section Navigation -->
+            <div class="plan-nav">
+                {% for section in sections %}
+                <a href="#" class="plan-nav-item {% if loop.first %}active{% endif %}{% if plan.sections.get(section) %} completed{% endif %}" data-section="{{ loop.index0 }}" onclick="switchSection(this, {{ loop.index0 }}); return false;">
+                    {{ section }}
+                </a>
+                {% endfor %}
+            </div>
+
+            <!-- Section Editor -->
+            <div class="plan-editor">
+                {% for section in sections %}
+                <div class="plan-section-card" data-section-panel="{{ loop.index0 }}" style="{% if not loop.first %}display: none;{% endif %}">
+                    <div class="plan-section-title">{{ section }}</div>
+
+                    {% if section == "Child/ren" %}
+                        <!-- Children fields -->
+                        <div id="children-list">
+                            <div class="form-row" style="margin-bottom: 16px;">
+                                <div class="form-group">
+                                    <label class="form-label">Child Name</label>
+                                    <input type="text" class="form-input" name="child_name_1" placeholder="Full name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Date of Birth</label>
+                                    <input type="date" class="form-input" name="child_dob_1">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-ghost btn-sm" onclick="addChild()">+ Add Child</button>
+
+                    {% elif section == "Schedules" %}
+                        <!-- Linked schedules from Custody Navigator -->
+                        {% if schedules %}
+                            <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">Schedules linked from the Custody Navigator:</p>
+                            {% for schedule in schedules %}
+                            <div class="schedule-item">
+                                <div class="schedule-item-info">
+                                    <h4>{{ schedule.name }}</h4>
+                                    <p>{{ schedule.description }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">No schedules linked yet.</p>
+                        {% endif %}
+                        <a href="/custody-navigator" class="btn btn-outline btn-sm" style="margin-top: 8px;">Open Custody Navigator</a>
+
+                    {% else %}
+                        <!-- Generic section textarea -->
+                        <form method="POST" action="/parenting-plan/{{ plan.id }}/section" data-section-name="{{ section }}">
+                            <input type="hidden" name="section_name" value="{{ section }}">
+                            <div class="form-group">
+                                <label class="form-label">Notes / Details</label>
+                                <textarea class="form-input" name="content" rows="6" placeholder="Enter details for {{ section }}...">{{ plan.sections.get(section, '') }}</textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-sm">Save Section</button>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+        {% if plan.client_link %}
+        <!-- Client Link -->
+        <div class="card" style="margin-top: 24px;">
+            <div class="card-body" style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                    <div style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px;">Client Review Link</div>
+                    <div style="font-size: 14px; color: var(--ofw-blue);">{{ plan.client_link }}</div>
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="copyClientLink()">Copy Link</button>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let childCount = 1;
+
+    function addChild() {
+        childCount++;
+        const list = document.getElementById('children-list');
+        const row = document.createElement('div');
+        row.className = 'form-row';
+        row.style.marginBottom = '16px';
+        row.innerHTML = `
+            <div class="form-group">
+                <label class="form-label">Child Name</label>
+                <input type="text" class="form-input" name="child_name_${childCount}" placeholder="Full name">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Date of Birth</label>
+                <input type="date" class="form-input" name="child_dob_${childCount}">
+            </div>
+        `;
+        list.appendChild(row);
+    }
+
+    function switchSection(clickedNav, index) {
+        // Update nav
+        document.querySelectorAll('.plan-nav-item').forEach(item => item.classList.remove('active'));
+        clickedNav.classList.add('active');
+
+        // Update panels
+        document.querySelectorAll('.plan-section-card').forEach(panel => {
+            panel.style.display = 'none';
+        });
+        const target = document.querySelector('[data-section-panel="' + index + '"]');
+        if (target) {
+            target.style.display = '';
+        }
+    }
+
+    function copyClientLink() {
+        const link = '{{ plan.client_link }}';
+        navigator.clipboard.writeText(link).then(() => {
+            const btn = event.target;
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
+        });
+    }
+</script>
+{% endblock %}

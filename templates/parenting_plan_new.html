@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}New Parenting Plan - OFW Pro{% endblock %}
+
+{% block content %}
+<div class="page-layout">
+    <div class="main-content content-full">
+
+        <div class="plan-header">
+            <h1>Parenting Plan</h1>
+        </div>
+
+        <div class="card">
+            <div class="card-body" style="padding: 32px 20px;">
+
+                <!-- Upload existing plan -->
+                <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 16V8M12 8l-3 3M12 8l3 3"/>
+                        <path d="M20 16.7V19a2 2 0 01-2 2H6a2 2 0 01-2-2v-2.3"/>
+                        <path d="M16 4H8a2 2 0 00-2 2v0M18 4h0a2 2 0 012 2v0"/>
+                    </svg>
+                    <h3>Upload your parenting plan</h3>
+                    <p>Drag and drop a PDF or image, or click to browse</p>
+                </div>
+
+                <form method="POST" action="/parenting-plan/new" style="margin-top: 16px;">
+                    <input type="hidden" name="mode" value="upload">
+                    <input type="file" id="fileInput" name="file" style="display: none;" accept=".pdf,.png,.jpg,.jpeg">
+                    <div class="form-actions" style="justify-content: center;">
+                        <button type="submit" class="btn btn-primary">Generate Form from Upload</button>
+                    </div>
+                </form>
+
+                <div style="text-align: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-light);">
+                    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">Or start with a blank template</p>
+                    <form method="POST" action="/parenting-plan/new" style="display: inline;">
+                        <input type="hidden" name="mode" value="blank">
+                        <button type="submit" class="btn btn-outline">Start Blank Plan</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

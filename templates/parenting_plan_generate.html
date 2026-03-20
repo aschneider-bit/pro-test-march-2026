@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Generate Parenting Plan - OFW Pro{% endblock %}
+
+{% block content %}
+<div class="page-layout">
+    <div class="main-content content-full">
+
+        <!-- Export Bar -->
+        <div class="export-bar">
+            <button class="btn btn-primary" onclick="window.print()">Export to PDF</button>
+            <button class="btn btn-outline">Export to Dropbox</button>
+            <button class="btn btn-outline">Export to SharePoint</button>
+            <a href="/parenting-plan/{{ plan.id }}/edit" class="btn btn-ghost">Back to Editor</a>
+        </div>
+
+        <!-- Document Preview -->
+        <div class="doc-preview">
+            <h1>Parenting Plan</h1>
+            <div class="doc-date">Generated on {{ now().strftime('%B %d, %Y') if now is defined else 'March 20, 2026' }}</div>
+
+            {% for section in sections %}
+            <div class="doc-section">
+                <h3>{{ section }}</h3>
+                {% if plan.sections.get(section) %}
+                    <p style="font-style: normal;">{{ plan.sections[section] }}</p>
+                {% else %}
+                    <p><em>No content provided</em></p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

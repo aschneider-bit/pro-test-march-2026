@@ -1,19 +1,683 @@
 {% extends "base.html" %}
 
-{% block title %}Home — Vibe Code App{% endblock %}
+{% block title %}Cozi{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Welcome to Vibe Code</h1>
-    <p>Describe what you want to build, and Claude will make it happen.</p>
-    <div class="card">
-        <h2>Getting Started</h2>
-        <ul>
-            <li>Tell Claude what you want to build</li>
-            <li>Use <code>/vibe</code> to start the server and get a public URL</li>
-            <li>Share the URL with anyone — protected with basic auth</li>
-            <li>Every edit is auto-committed so you can always roll back</li>
-        </ul>
+<div class="app-shell">
+
+    <!-- Header — Cozi Sky Blue -->
+    <header class="app-header">
+        <div class="header-left">
+            <svg class="cozi-logo" width="72" height="28" viewBox="0 0 90 34" fill="none">
+                <!-- C -->
+                <path d="M10.5 28.5c-5.8 0-10.5-4.7-10.5-10.5S4.7 7.5 10.5 7.5c3.8 0 7.1 2 8.9 5l-3.5 2c-1.2-2-3.2-3.2-5.4-3.2-3.8 0-6.7 3-6.7 6.7s2.9 6.7 6.7 6.7c2.2 0 4.2-1.2 5.4-3.2l3.5 2c-1.8 3-5.1 5-8.9 5z" fill="#fff"/>
+                <!-- O -->
+                <path d="M30 28.5c-5.8 0-10.5-4.7-10.5-10.5S24.2 7.5 30 7.5s10.5 4.7 10.5 10.5S35.8 28.5 30 28.5zm0-17.2c-3.8 0-6.7 3-6.7 6.7s2.9 6.7 6.7 6.7 6.7-3 6.7-6.7-2.9-6.7-6.7-6.7z" fill="#fff"/>
+                <!-- Z -->
+                <path d="M43 11.3V7.5h15v3.2l-10.5 14h10.5v3.8H43v-3.2l10.5-14H43z" fill="#fff"/>
+                <!-- I (stem) -->
+                <path d="M61 14h4.2v14.5H61z" fill="#fff"/>
+                <!-- Butterfly: orange circle (top-left) -->
+                <circle cx="63" cy="5.5" r="5.5" fill="#F5A623"/>
+                <circle cx="63" cy="5.5" r="2" fill="#fff"/>
+                <!-- Butterfly: blue circle (top-right) -->
+                <circle cx="73" cy="5.5" r="5.5" fill="#29ABE2"/>
+                <circle cx="73" cy="5.5" r="2" fill="#fff"/>
+                <!-- Butterfly: green circle (bottom-right) -->
+                <circle cx="73" cy="15.5" r="5.5" fill="#8CC63F" opacity="0.7"/>
+                <circle cx="73" cy="15.5" r="2" fill="#fff"/>
+            </svg>
+            <span class="header-divider">|</span>
+            <span class="header-title" id="header-title">Money</span>
+        </div>
+        <div class="header-right">
+            <button class="header-icon-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </button>
+            <button class="header-icon-btn" onclick="openSheet()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main content area -->
+    <div class="tab-content">
+
+        <!-- ==================== HOME TAB (placeholder) ==================== -->
+        <section id="main-home" class="main-panel">
+            <div class="placeholder-screen">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#29ABE2" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <h2>Home</h2>
+                <p>Your family dashboard</p>
+            </div>
+        </section>
+
+        <!-- ==================== CALENDAR TAB (placeholder) ==================== -->
+        <section id="main-calendar" class="main-panel">
+            <div class="placeholder-screen">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#29ABE2" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                <h2>Calendar</h2>
+                <p>Family schedule &amp; events</p>
+            </div>
+        </section>
+
+        <!-- ==================== MONEY TAB ==================== -->
+        <section id="main-money" class="main-panel active">
+
+            <!-- Sub-tabs — 3 simple options -->
+            <div class="sub-tabs">
+                <button class="sub-tab active" data-subtab="overview" onclick="switchSubTab('overview')">Overview</button>
+                <button class="sub-tab" data-subtab="activity" onclick="switchSubTab('activity')">Activity</button>
+                <button class="sub-tab" data-subtab="bills" onclick="switchSubTab('bills')">Bills</button>
+            </div>
+
+            <!-- Sub-tab content -->
+            <div class="sub-content">
+
+                <!-- ===== OVERVIEW ===== -->
+                <div id="subtab-overview" class="sub-panel active">
+
+                    <!-- Safe to Spend -->
+                    <div class="safe-to-spend-card">
+                        <div class="sts-label">Safe to Spend in {{ current_month }}</div>
+                        <div class="sts-amount">${{ "{:,.2f}".format(safe_to_spend) }}</div>
+                        <div class="sts-status">
+                            <span class="status-dot {{ health_status }}"></span>
+                            {% if health_status == 'green' %}You're doing great this month.
+                            {% elif health_status == 'yellow' %}Spending is a bit ahead of pace.
+                            {% else %}Spending is higher than usual.{% endif %}
+                        </div>
+                        <div class="sts-breakdown">
+                            <div class="sts-row"><span>Income</span><span class="positive">${{ "%.0f"|format(monthly_income) }}</span></div>
+                            <div class="sts-row"><span>Fixed bills</span><span>-${{ "%.0f"|format(fixed_bills) }}</span></div>
+                            <div class="sts-row"><span>Savings goals</span><span>-${{ "%.0f"|format(savings_contribution) }}</span></div>
+                            <div class="sts-row"><span>Spent so far</span><span>-${{ "%.2f"|format(spent_so_far) }}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Spending Trend Chart -->
+                    <div class="section-block">
+                        <div class="section-strip"><span>Spending Trend</span><span class="strip-sub">6 months</span></div>
+                        <div class="trend-chart-wrap">
+                            <svg class="trend-chart" viewBox="0 0 398 160" preserveAspectRatio="none">
+                                <!-- Grid lines -->
+                                <line x1="0" y1="40" x2="398" y2="40" stroke="#E8E8E8" stroke-width="1"/>
+                                <line x1="0" y1="80" x2="398" y2="80" stroke="#E8E8E8" stroke-width="1"/>
+                                <line x1="0" y1="120" x2="398" y2="120" stroke="#E8E8E8" stroke-width="1"/>
+                                <!-- Income line (flat) -->
+                                {% set max_val = 9000 %}
+                                {% set chart_h = 140 %}
+                                {% set chart_pad = 10 %}
+                                <polyline fill="none" stroke="#4CAF50" stroke-width="2" stroke-dasharray="6,4" opacity="0.5"
+                                    points="{% for t in monthly_trends %}{{ (loop.index0 * 398 / (monthly_trends|length - 1))|round(1) }},{{ (chart_pad + chart_h - (t.income / max_val * chart_h))|round(1) }}{% if not loop.last %} {% endif %}{% endfor %}"/>
+                                <!-- Spending area fill -->
+                                <polygon fill="url(#spendGrad)" opacity="0.15"
+                                    points="0,{{ (chart_pad + chart_h)|round(1) }} {% for t in monthly_trends %}{{ (loop.index0 * 398 / (monthly_trends|length - 1))|round(1) }},{{ (chart_pad + chart_h - (t.spending / max_val * chart_h))|round(1) }}{% if not loop.last %} {% endif %}{% endfor %} 398,{{ (chart_pad + chart_h)|round(1) }}"/>
+                                <!-- Spending line -->
+                                <polyline fill="none" stroke="#29ABE2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                    points="{% for t in monthly_trends %}{{ (loop.index0 * 398 / (monthly_trends|length - 1))|round(1) }},{{ (chart_pad + chart_h - (t.spending / max_val * chart_h))|round(1) }}{% if not loop.last %} {% endif %}{% endfor %}"/>
+                                <!-- Data points -->
+                                {% for t in monthly_trends %}
+                                <circle cx="{{ (loop.index0 * 398 / (monthly_trends|length - 1))|round(1) }}" cy="{{ (chart_pad + chart_h - (t.spending / max_val * chart_h))|round(1) }}" r="4" fill="#29ABE2" stroke="#fff" stroke-width="2"/>
+                                {% endfor %}
+                                <defs>
+                                    <linearGradient id="spendGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#29ABE2"/>
+                                        <stop offset="100%" stop-color="#29ABE2" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="trend-labels">
+                                {% for t in monthly_trends %}
+                                <span class="trend-label {% if loop.last %}current{% endif %}">{{ t.month }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="trend-legend">
+                                <span class="legend-item"><span class="legend-line spending"></span> Spending</span>
+                                <span class="legend-item"><span class="legend-line income"></span> Income</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Disney Vacation Goal -->
+                    <div class="section-block">
+                        <div class="disney-banner">
+                            <div class="disney-sparkles">
+                                <span class="sparkle s1"></span><span class="sparkle s2"></span><span class="sparkle s3"></span>
+                                <span class="sparkle s4"></span><span class="sparkle s5"></span><span class="sparkle s6"></span>
+                            </div>
+                            <div class="disney-banner-icon">
+                                <!-- Castle silhouette -->
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                    <path d="M20 2l1.5 6h-3L20 2z" fill="#FFD700"/>
+                                    <rect x="18.5" y="8" width="3" height="8" rx="1" fill="#fff"/>
+                                    <rect x="11" y="14" width="3" height="10" rx="1" fill="#fff" opacity="0.85"/>
+                                    <rect x="26" y="14" width="3" height="10" rx="1" fill="#fff" opacity="0.85"/>
+                                    <rect x="5" y="18" width="3" height="8" rx="1" fill="#fff" opacity="0.7"/>
+                                    <rect x="32" y="18" width="3" height="8" rx="1" fill="#fff" opacity="0.7"/>
+                                    <path d="M3 26h34v2H3z" fill="#fff" opacity="0.9"/>
+                                    <path d="M6 28h28v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4z" fill="#fff"/>
+                                    <rect x="16" y="28" width="8" height="6" rx="4" fill="#1A1150" opacity="0.4"/>
+                                    <!-- Tiny flag on top -->
+                                    <path d="M20 2v-0.5" stroke="#FFD700" stroke-width="0.5"/>
+                                </svg>
+                            </div>
+                            <div class="disney-banner-text">
+                                <div class="disney-banner-title">{{ disney_trip.name }}</div>
+                                <div class="disney-banner-date">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                                    {{ disney_trip.trip_date.strftime('%B %d, %Y') }}
+                                </div>
+                            </div>
+                            <div class="disney-banner-countdown">
+                                <div class="disney-days-num">{{ disney_days_left }}</div>
+                                <div class="disney-days-label">days</div>
+                            </div>
+                        </div>
+                        <div class="disney-goal-card">
+                            <div class="disney-progress">
+                                <div class="disney-progress-header">
+                                    <span class="disney-saved">${{ "{:,.0f}".format(disney_trip.saved) }}</span>
+                                    <span class="disney-target">of ${{ "{:,.0f}".format(disney_trip.target) }}</span>
+                                </div>
+                                <div class="disney-progress-track">
+                                    <div class="disney-progress-fill" style="width:{{ disney_pct }}%">
+                                        <span class="disney-progress-star">&#9733;</span>
+                                    </div>
+                                </div>
+                                <div class="disney-progress-labels">
+                                    <span>{{ disney_pct }}% funded</span>
+                                    <span>${{ "{:,.0f}".format(disney_remaining) }} to go</span>
+                                </div>
+                            </div>
+                            <div class="disney-details">
+                                <div class="disney-detail-row">
+                                    <span>{{ disney_months_left }} months left</span>
+                                    <span class="disney-detail-value">${{ "{:,.0f}".format(disney_remaining / disney_months_left) }}/mo needed</span>
+                                </div>
+                                <div class="disney-detail-row">
+                                    <span>Saving now</span>
+                                    <span class="disney-detail-value {% if disney_trip.monthly >= (disney_remaining / disney_months_left) %}positive{% else %}disney-behind{% endif %}">${{ "{:,.0f}".format(disney_trip.monthly) }}/mo</span>
+                                </div>
+                            </div>
+                            <div class="disney-breakdown">
+                                <div class="disney-breakdown-label">Trip Budget</div>
+                                {% for item in disney_trip.breakdown %}
+                                <div class="disney-line-item">
+                                    <span>{{ item.item }}</span>
+                                    <span>${{ "{:,.0f}".format(item.cost) }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accounts -->
+                    <div class="section-block">
+                        <div class="section-strip"><span>Accounts</span><button class="strip-action" onclick="openSheet()">+ Add</button></div>
+                        <div class="account-summary">
+                            <div class="account-summary-item">
+                                <span class="account-summary-label">Cash</span>
+                                <span class="account-summary-value positive">${{ "{:,.2f}".format(total_cash) }}</span>
+                            </div>
+                            <div class="account-summary-item">
+                                <span class="account-summary-label">Credit Cards</span>
+                                <span class="account-summary-value negative">-${{ "{:,.2f}".format(total_credit) }}</span>
+                            </div>
+                        </div>
+                        {% for account in accounts %}
+                        <div class="list-row">
+                            <div class="row-left">
+                                <span class="row-icon {{ account.type }}">
+                                    {% if account.type == 'checking' %}
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg>
+                                    {% elif account.type == 'savings' %}
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2"/></svg>
+                                    {% else %}
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+                                    {% endif %}
+                                </span>
+                                <div class="row-text">
+                                    <div class="row-title">{{ account.name }}</div>
+                                    <div class="row-subtitle">{{ account.institution }}</div>
+                                </div>
+                            </div>
+                            <span class="row-value {% if account.balance < 0 %}negative{% else %}positive{% endif %}">
+                                {% if account.balance < 0 %}-{% endif %}${{ "{:,.2f}".format(account.balance|abs) }}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Coming Up -->
+                    <div class="section-block">
+                        <div class="section-strip"><span>Coming Up</span><span class="strip-sub">Next 30 days</span></div>
+                        {% for bill in upcoming_bills[:3] %}
+                        <div class="list-row">
+                            <div class="row-left">
+                                <div class="row-text">
+                                    <div class="row-title">{{ bill.name }}</div>
+                                    <div class="row-subtitle">Due {{ bill.due }}{% if bill.autopay %} <span class="badge-autopay">Autopay</span>{% endif %}</div>
+                                </div>
+                            </div>
+                            <span class="row-value">${{ "{:,.2f}".format(bill.amount) }}</span>
+                        </div>
+                        {% endfor %}
+                        <button class="see-all-link" onclick="switchSubTab('bills')">See all bills &rarr;</button>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="section-block">
+                        <div class="section-strip"><span>Recent Activity</span></div>
+                        {% for txn in transactions[:5] %}
+                        <div class="list-row">
+                            <div class="row-left">
+                                <span class="row-icon {{ txn.category|lower|replace(' & ', '-')|replace(' ', '-') }}">{{ txn.category[0] }}</span>
+                                <div class="row-text">
+                                    <div class="row-title">{{ txn.merchant }}</div>
+                                    <div class="row-subtitle">{{ txn.category }}{% if not txn.reviewed %} <span class="unreviewed-dot"></span>{% endif %}</div>
+                                </div>
+                            </div>
+                            <span class="row-value {% if txn.amount > 0 %}positive{% endif %}">{% if txn.amount > 0 %}+{% endif %}${{ "{:,.2f}".format(txn.amount|abs) }}</span>
+                        </div>
+                        {% endfor %}
+                        <button class="see-all-link" onclick="switchSubTab('activity')">See all transactions &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- ===== ACTIVITY ===== -->
+                <div id="subtab-activity" class="sub-panel">
+                    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px 6px;">
+                        <span style="font-size:13px;color:#999;">{{ transactions|length }} transactions</span>
+                        <button class="mark-reviewed-btn" onclick="markAllReviewed()">Mark all reviewed</button>
+                    </div>
+                    {% set ns = namespace(last_date='') %}
+                    {% for txn in transactions %}
+                        {% if txn.date != ns.last_date %}
+                            {% set ns.last_date = txn.date %}
+                            <div class="txn-date-header">{{ txn.date }}</div>
+                        {% endif %}
+                        <div class="txn-row {% if txn.reviewed %}reviewed{% endif %}" data-txn-id="{{ loop.index }}">
+                            <span class="row-icon {{ txn.category|lower|replace(' & ', '-')|replace(' ', '-') }}">{{ txn.category[0] }}</span>
+                            <div class="txn-info">
+                                <div class="txn-merchant">{{ txn.merchant }}</div>
+                                <div class="txn-category-line">
+                                    <span class="txn-category">{{ txn.category }}</span>
+                                    {% if not txn.reviewed %}<span class="unreviewed-dot"></span>{% endif %}
+                                </div>
+                            </div>
+                            <span class="txn-amount {% if txn.amount > 0 %}positive{% endif %}">{% if txn.amount > 0 %}+{% endif %}${{ "{:,.2f}".format(txn.amount|abs) }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- ===== BILLS ===== -->
+                <div id="subtab-bills" class="sub-panel">
+                    <div class="section-block">
+                        <div class="section-strip"><span>Upcoming Bills</span></div>
+                        {% for bill in upcoming_bills %}
+                        <div class="txn-row">
+                            <span class="row-icon bills-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                            </span>
+                            <div class="txn-info">
+                                <div class="txn-merchant">{{ bill.name }}</div>
+                                <div class="txn-category-line">
+                                    <span class="txn-category">Due {{ bill.due }}</span>
+                                    {% if bill.autopay %}<span class="badge-autopay">Autopay</span>{% endif %}
+                                </div>
+                            </div>
+                            <span class="txn-amount">${{ "{:,.2f}".format(bill.amount) }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="section-block">
+                        <div class="section-strip"><span>Subscriptions</span><span class="strip-sub">${{ "{:,.2f}".format(subscription_total) }}/mo</span></div>
+                        {% for sub in subscriptions %}
+                        <div class="txn-row">
+                            <span class="row-icon subs-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                            </span>
+                            <div class="txn-info">
+                                <div class="txn-merchant">{{ sub.name }}</div>
+                                <div class="txn-category-line">
+                                    <span class="txn-category">Next charge {{ sub.next_date }}</span>
+                                </div>
+                            </div>
+                            <span class="txn-amount">${{ "{:,.2f}".format(sub.amount) }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== LISTS TAB (placeholder) ==================== -->
+        <section id="main-lists" class="main-panel">
+            <div class="placeholder-screen">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#29ABE2" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                <h2>Lists</h2>
+                <p>Shopping &amp; to-do lists</p>
+            </div>
+        </section>
+
+        <!-- ==================== FAMILY TAB (placeholder) ==================== -->
+        <section id="main-family" class="main-panel">
+            <div class="placeholder-screen">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#29ABE2" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                <h2>Family</h2>
+                <p>Family members &amp; settings</p>
+            </div>
+        </section>
+
     </div>
+
+    <!-- Bottom Tab Bar — Cozi Tabs -->
+    <nav class="tab-bar">
+        <button class="tab-btn" data-main="home" onclick="switchMain('home')">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Home</span>
+        </button>
+        <button class="tab-btn" data-main="calendar" onclick="switchMain('calendar')">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <span>Calendar</span>
+        </button>
+        <button class="tab-btn" data-main="lists" onclick="switchMain('lists')">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <span>Lists</span>
+        </button>
+        <button class="tab-btn active" data-main="money" onclick="switchMain('money')">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            <span>Money</span>
+        </button>
+        <button class="tab-btn" data-main="family" onclick="switchMain('family')">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            <span>Family</span>
+        </button>
+    </nav>
+
+    <!-- Plaid Link Modal -->
+    <div class="plaid-overlay" id="plaidOverlay" onclick="closePlaid()"></div>
+    <div class="plaid-modal" id="plaidModal">
+
+        <!-- Plaid Step 1: Consent -->
+        <div class="plaid-step active" id="plaid-step-1">
+            <div class="plaid-header">
+                <button class="plaid-close" onclick="closePlaid()">&times;</button>
+            </div>
+            <div class="plaid-body center">
+                <div class="plaid-logos">
+                    <div class="plaid-app-logo">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#29ABE2"/><text x="14" y="18" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">C</text></svg>
+                    </div>
+                    <div class="plaid-connect-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="plaid-plaid-logo">
+                        <svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#111"/><rect x="4" y="4" width="8" height="8" rx="1" fill="#fff"/><rect x="16" y="4" width="8" height="8" rx="1" fill="#fff"/><rect x="4" y="16" width="8" height="8" rx="1" fill="#fff"/><rect x="16" y="16" width="8" height="8" rx="1" fill="#fff"/></svg>
+                    </div>
+                </div>
+                <h2 class="plaid-title">Cozi Money uses Plaid to connect your accounts</h2>
+                <p class="plaid-desc">Plaid lets you securely connect your financial accounts in seconds.</p>
+                <ul class="plaid-features">
+                    <li>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                        <div><strong>Secure</strong><span>Your credentials are encrypted end-to-end</span></div>
+                    </li>
+                    <li>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        <div><strong>Private</strong><span>Your data is never sold to third parties</span></div>
+                    </li>
+                </ul>
+                <button class="plaid-continue-btn" onclick="plaidNext(2)">Continue</button>
+                <div class="plaid-footer">
+                    <svg width="12" height="12" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#111"/><rect x="4" y="4" width="8" height="8" rx="1" fill="#fff"/><rect x="16" y="4" width="8" height="8" rx="1" fill="#fff"/><rect x="4" y="16" width="8" height="8" rx="1" fill="#fff"/><rect x="16" y="16" width="8" height="8" rx="1" fill="#fff"/></svg>
+                    <span>Powered by <strong>Plaid</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plaid Step 2: Search institution -->
+        <div class="plaid-step" id="plaid-step-2">
+            <div class="plaid-header">
+                <button class="plaid-back" onclick="plaidBack(1)">&larr;</button>
+                <span class="plaid-header-text">Select your bank</span>
+                <button class="plaid-close" onclick="closePlaid()">&times;</button>
+            </div>
+            <div class="plaid-body">
+                <div class="plaid-search">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <input type="text" id="plaidSearch" placeholder="Search" oninput="filterPlaidBanks(this.value)">
+                </div>
+                <div class="plaid-bank-list" id="plaidBankList">
+                    <button class="plaid-bank" onclick="selectPlaidBank('Chase')">
+                        <span class="plaid-bank-logo" style="background:#1A73E8;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg>
+                        </span>
+                        <span class="plaid-bank-name">Chase</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                    <button class="plaid-bank" onclick="selectPlaidBank('Bank of America')">
+                        <span class="plaid-bank-logo" style="background:#C41230;">BA</span>
+                        <span class="plaid-bank-name">Bank of America</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                    <button class="plaid-bank" onclick="selectPlaidBank('Wells Fargo')">
+                        <span class="plaid-bank-logo" style="background:#CF0A2C;">WF</span>
+                        <span class="plaid-bank-name">Wells Fargo</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                    <button class="plaid-bank" onclick="selectPlaidBank('Capital One')">
+                        <span class="plaid-bank-logo" style="background:#D12124;">C1</span>
+                        <span class="plaid-bank-name">Capital One</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                    <button class="plaid-bank" onclick="selectPlaidBank('Citi')">
+                        <span class="plaid-bank-logo" style="background:#003B70;">Ci</span>
+                        <span class="plaid-bank-name">Citi</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                    <button class="plaid-bank" onclick="selectPlaidBank('American Express')">
+                        <span class="plaid-bank-logo" style="background:#006FCF;">AX</span>
+                        <span class="plaid-bank-name">American Express</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                    <button class="plaid-bank" onclick="selectPlaidBank('Discover')">
+                        <span class="plaid-bank-logo" style="background:#FF6000;">D</span>
+                        <span class="plaid-bank-name">Discover</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                    <button class="plaid-bank" onclick="selectPlaidBank('US Bank')">
+                        <span class="plaid-bank-logo" style="background:#D71E28;">US</span>
+                        <span class="plaid-bank-name">US Bank</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                    <button class="plaid-bank" onclick="selectPlaidBank('Ally')">
+                        <span class="plaid-bank-logo" style="background:#6F2DA8;">Al</span>
+                        <span class="plaid-bank-name">Ally</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plaid Step 3: Credentials -->
+        <div class="plaid-step" id="plaid-step-3">
+            <div class="plaid-header">
+                <button class="plaid-back" onclick="plaidBack(2)">&larr;</button>
+                <span class="plaid-header-text" id="plaidBankTitle">Chase</span>
+                <button class="plaid-close" onclick="closePlaid()">&times;</button>
+            </div>
+            <div class="plaid-body">
+                <p class="plaid-cred-desc">Enter your credentials for <strong id="plaidBankName2">Chase</strong></p>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" placeholder="Username" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Password" class="form-input">
+                </div>
+                <button class="plaid-submit-btn" onclick="plaidNext(4)">Submit</button>
+                <div class="plaid-footer">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                    <span>Your data is encrypted by Plaid</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plaid Step 4: Connecting -->
+        <div class="plaid-step" id="plaid-step-4">
+            <div class="plaid-header">
+                <span class="plaid-header-text"></span>
+            </div>
+            <div class="plaid-body center">
+                <div class="spinner"></div>
+                <h2 class="plaid-title" style="font-size:18px;">Connecting to <span id="plaidBankName3">Chase</span>...</h2>
+                <p class="plaid-desc">This may take a few seconds.</p>
+            </div>
+        </div>
+
+        <!-- Plaid Step 5: Select accounts -->
+        <div class="plaid-step" id="plaid-step-5">
+            <div class="plaid-header">
+                <span class="plaid-header-text">Select accounts</span>
+                <button class="plaid-close" onclick="closePlaid()">&times;</button>
+            </div>
+            <div class="plaid-body">
+                <p class="plaid-desc" style="margin-bottom:12px;">Choose accounts to share with Cozi Money.</p>
+                <div class="found-accounts">
+                    <label class="found-account">
+                        <input type="checkbox" checked>
+                        <div class="found-info">
+                            <div class="found-name">Sapphire Preferred</div>
+                            <div class="found-detail">Credit Card ...9274</div>
+                        </div>
+                        <span class="found-balance negative">-$2,341.18</span>
+                    </label>
+                    <label class="found-account">
+                        <input type="checkbox" checked>
+                        <div class="found-info">
+                            <div class="found-name">Freedom Unlimited</div>
+                            <div class="found-detail">Credit Card ...5512</div>
+                        </div>
+                        <span class="found-balance negative">-$487.30</span>
+                    </label>
+                    <label class="found-account">
+                        <input type="checkbox">
+                        <div class="found-info">
+                            <div class="found-name">Total Checking</div>
+                            <div class="found-detail">Checking ...8841</div>
+                        </div>
+                        <span class="found-balance positive">$3,112.45</span>
+                    </label>
+                </div>
+                <button class="plaid-submit-btn" onclick="plaidNext(6)">Link accounts</button>
+            </div>
+        </div>
+
+        <!-- Plaid Step 6: Success -->
+        <div class="plaid-step" id="plaid-step-6">
+            <div class="plaid-header">
+                <button class="plaid-close" onclick="closePlaid()">&times;</button>
+            </div>
+            <div class="plaid-body center">
+                <div class="plaid-success-check">
+                    <svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="28" fill="#E8F5E9"/><path d="M18 28l7 7 13-13" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                </div>
+                <h2 class="plaid-title">Accounts connected</h2>
+                <p class="plaid-desc">Your accounts are now linked. Cozi Money will start syncing your transactions automatically.</p>
+                <button class="plaid-submit-btn" onclick="closePlaid()">Done</button>
+            </div>
+        </div>
+
+    </div>
+
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const headerTitles = {
+    home: 'Home',
+    calendar: 'January',
+    money: 'Money',
+    lists: 'Lists',
+    family: 'Family'
+};
+
+function switchMain(tabName) {
+    document.querySelectorAll('.main-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('main-' + tabName).classList.add('active');
+    document.querySelector('[data-main="' + tabName + '"]').classList.add('active');
+    document.getElementById('header-title').textContent = headerTitles[tabName] || tabName;
+    document.querySelector('.tab-content').scrollTop = 0;
+}
+
+function switchSubTab(name) {
+    document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('subtab-' + name).classList.add('active');
+    document.querySelector('[data-subtab="' + name + '"]').classList.add('active');
+    document.querySelector('.sub-content').scrollTop = 0;
+}
+
+function markAllReviewed() {
+    document.querySelectorAll('.txn-row').forEach(row => {
+        row.classList.add('reviewed');
+        const dot = row.querySelector('.unreviewed-dot');
+        if (dot) dot.remove();
+    });
+}
+
+document.querySelectorAll('.txn-row').forEach(row => {
+    row.addEventListener('click', () => row.classList.toggle('reviewed'));
+});
+
+// --- Plaid Link ---
+function openSheet() {
+    document.getElementById('plaidOverlay').classList.add('visible');
+    document.getElementById('plaidModal').classList.add('visible');
+    document.querySelectorAll('.plaid-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('plaid-step-1').classList.add('active');
+}
+
+function closePlaid() {
+    document.getElementById('plaidOverlay').classList.remove('visible');
+    document.getElementById('plaidModal').classList.remove('visible');
+}
+
+function plaidNext(step) {
+    document.querySelectorAll('.plaid-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('plaid-step-' + step).classList.add('active');
+    if (step === 4) {
+        setTimeout(() => {
+            document.querySelectorAll('.plaid-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('plaid-step-5').classList.add('active');
+        }, 2200);
+    }
+}
+
+function plaidBack(step) {
+    document.querySelectorAll('.plaid-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('plaid-step-' + step).classList.add('active');
+}
+
+function selectPlaidBank(name) {
+    document.getElementById('plaidBankTitle').textContent = name;
+    document.getElementById('plaidBankName2').textContent = name;
+    document.getElementById('plaidBankName3').textContent = name;
+    plaidNext(3);
+}
+
+const allPlaidBanks = document.querySelectorAll('.plaid-bank');
+function filterPlaidBanks(query) {
+    const q = query.toLowerCase();
+    allPlaidBanks.forEach(item => {
+        item.style.display = item.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+}
+</script>
 {% endblock %}
