@@ -104,7 +104,7 @@ a:hover {
 .nav-logo-text {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--navy);
     letter-spacing: -0.2px;
 }
 
