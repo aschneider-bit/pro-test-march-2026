@@ -58,7 +58,7 @@ CURRENT_USER = {
     "initials": "BO",
     "email": "brian.olson@lawfirm.com",
     "role": "attorney",
-    "avatar_color": "#1976D2",
+    "avatar_color": "#0E8DA2",
 }
 
 FAMILIES = [
@@ -67,7 +67,7 @@ FAMILIES = [
         "name": "Gein - Gein",
         "notification_settings": True,
         "members": [
-            {"name": "Aaron Gein", "initials": "AG", "color": "#1976D2", "subscription": "Subscription: Current", "sub_detail": "Expires: 12/2026", "access": "Access: Requested", "access_detail": "on 7/15/2025 by 3 family", "approved": False},
+            {"name": "Aaron Gein", "initials": "AG", "color": "#0E8DA2", "subscription": "Subscription: Current", "sub_detail": "Expires: 12/2026", "access": "Access: Requested", "access_detail": "on 7/15/2025 by 3 family", "approved": False},
             {"name": "Jordan Gein", "initials": "JG", "color": "#4CAF50", "subscription": "Subscription: Current", "sub_detail": "Expires: 12/2026", "access": "Access: Requested", "access_detail": "on 7/15/2025 by 3 family", "approved": False},
         ],
     },
@@ -94,7 +94,7 @@ FAMILIES = [
         "name": "OFWTest-Wallner - OFWTest-Wallner",
         "notification_settings": True,
         "members": [
-            {"name": "Annika OFWTest-Wallner", "initials": "AO", "color": "#1976D2", "subscription": "Subscription: Current", "sub_detail": "Expires: 12/2026", "access": "Access: Requested", "access_detail": "on 7/15/2025 by 3 family", "approved": True},
+            {"name": "Annika OFWTest-Wallner", "initials": "AO", "color": "#0E8DA2", "subscription": "Subscription: Current", "sub_detail": "Expires: 12/2026", "access": "Access: Requested", "access_detail": "on 7/15/2025 by 3 family", "approved": True},
             {"name": "Andrea OFWTest-Wallner", "initials": "AW", "color": "#388E3C", "subscription": "Subscription: Current", "sub_detail": "Expires: 12/2026", "access": "Access: Requested", "access_detail": "on 7/15/2025 by 3 family", "approved": True},
         ],
     },
