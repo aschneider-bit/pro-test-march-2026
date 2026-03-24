@@ -1519,15 +1519,15 @@ textarea.form-input {
     padding: 14px 36px;
     font-size: 14px;
     font-weight: 600;
-    background: #7FC8E5;
-    border-color: #7FC8E5;
-    color: #122845;
+    background: #122845;
+    border-color: #122845;
+    color: #fff;
     border-radius: 5px;
 }
 
 .splash-btn-yes:hover {
-    background: #6BBDD9;
-    border-color: #6BBDD9;
+    background: #0E1F38;
+    border-color: #0E1F38;
 }
 
 .splash-btn-no {
