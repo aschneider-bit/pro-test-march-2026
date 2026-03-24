@@ -116,7 +116,7 @@ a:hover {
 
 .nav-tab {
     padding: 0 14px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text-secondary);
     text-decoration: none;
@@ -128,12 +128,12 @@ a:hover {
 }
 
 .nav-tab:hover {
-    color: var(--text-primary);
+    color: var(--navy);
     text-decoration: none;
 }
 
 .nav-tab.active {
-    color: var(--text-primary);
+    color: var(--navy);
     font-weight: 600;
 }
 
