@@ -1531,8 +1531,12 @@ textarea.form-input {
 }
 
 .splash-btn-no {
-    padding: 8px 24px;
+    padding: 14px 36px;
     font-size: 14px;
+    font-weight: 600;
+    border-radius: 5px;
+    border-color: #122845;
+    color: #122845;
 }
 
 .splash-footer {
