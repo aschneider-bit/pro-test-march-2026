@@ -1490,7 +1490,6 @@ textarea.form-input {
 
 .splash-cta {
     border-top: 1px solid var(--border-light);
-    background: var(--bg-page);
     padding: 24px 40px;
     text-align: center;
 }
