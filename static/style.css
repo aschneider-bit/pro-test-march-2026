@@ -1516,8 +1516,16 @@ textarea.form-input {
 }
 
 .splash-btn-yes {
-    padding: 8px 24px;
+    padding: 10px 28px;
     font-size: 14px;
+    background: #7FC8E5;
+    border-color: #7FC8E5;
+    color: #1B3A4B;
+}
+
+.splash-btn-yes:hover {
+    background: #6BBDD9;
+    border-color: #6BBDD9;
 }
 
 .splash-btn-no {
