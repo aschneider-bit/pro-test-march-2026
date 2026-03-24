@@ -4,245 +4,95 @@
 
 {% block content %}
 <div class="page-layout">
-    <div class="main-content content-full">
+    <div class="main-content content-full" style="display:flex; justify-content:center; padding-top:48px;">
 
-        <!-- Page Header -->
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
-            <h1 style="font-size:20px; font-weight:700;">Schedule Builder</h1>
-            <button class="btn btn-primary">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                Create New Schedule
-            </button>
-        </div>
-
-        <!-- Schedule Builder Card -->
-        <div class="schedule-builder">
-
-            <!-- Calendar Header -->
-            <div class="calendar-header">
-                <div class="calendar-nav">
-                    <button title="Previous month">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-                    </button>
-                    <span class="calendar-month">April 2026</span>
-                    <button title="Next month">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </button>
-                </div>
-                <div style="display:flex; gap:4px;">
-                    <button class="btn btn-sm btn-outline" style="border-radius:4px 0 0 4px;">Month</button>
-                    <button class="btn btn-sm btn-ghost" style="border-radius:0;">Week</button>
-                    <button class="btn btn-sm btn-ghost" style="border-radius:0 4px 4px 0;">List</button>
-                </div>
-            </div>
-
-            <!-- Calendar Grid -->
-            <div class="calendar-grid">
-                <!-- Day Labels -->
-                <div class="calendar-day-label">Sun</div>
-                <div class="calendar-day-label">Mon</div>
-                <div class="calendar-day-label">Tue</div>
-                <div class="calendar-day-label">Wed</div>
-                <div class="calendar-day-label">Thu</div>
-                <div class="calendar-day-label">Fri</div>
-                <div class="calendar-day-label">Sat</div>
-
-                <!-- Week 1: Mar 29 - Apr 4 -->
-                <div class="calendar-day other-month">
-                    <div class="calendar-day-num">29</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day other-month">
-                    <div class="calendar-day-num">30</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day other-month">
-                    <div class="calendar-day-num">31</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">1</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">2</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">3</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">4</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-
-                <!-- Week 2: Apr 5 - 11 -->
-                <div class="calendar-day">
-                    <div class="calendar-day-num">5</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">6</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">7</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">8</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">9</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">10</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">11</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-
-                <!-- Week 3: Apr 12 - 18 -->
-                <div class="calendar-day">
-                    <div class="calendar-day-num">12</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">13</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">14</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">15</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">16</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">17</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">18</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-
-                <!-- Week 4: Apr 19 - 25 -->
-                <div class="calendar-day">
-                    <div class="calendar-day-num">19</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">20</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">21</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">22</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">23</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">24</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">25</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-
-                <!-- Week 5: Apr 26 - May 2 -->
-                <div class="calendar-day">
-                    <div class="calendar-day-num">26</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">27</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">28</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">29</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day">
-                    <div class="calendar-day-num">30</div>
-                    <span class="custody-tag parent-a">Parent A</span>
-                </div>
-                <div class="calendar-day other-month">
-                    <div class="calendar-day-num">1</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-                <div class="calendar-day other-month">
-                    <div class="calendar-day-num">2</div>
-                    <span class="custody-tag parent-b">Parent B</span>
-                </div>
-            </div>
-
-            <!-- Legend -->
-            <div style="display:flex; align-items:center; gap:16px; padding:12px 20px; border-top:1px solid var(--border-light);">
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <span style="width:12px; height:12px; border-radius:2px; background:var(--ofw-blue-light); border:1px solid var(--ofw-blue); display:inline-block;"></span>
-                    <span style="font-size:13px; color:var(--text-secondary);">Parent A</span>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <span style="width:12px; height:12px; border-radius:2px; background:#FFF3E0; border:1px solid #E65100; display:inline-block;"></span>
-                    <span style="font-size:13px; color:var(--text-secondary);">Parent B</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Saved Schedules -->
-        <div style="margin-top:24px;">
-            <h2 style="font-size:18px; font-weight:700; margin-bottom:12px;">Saved Schedules</h2>
-
-            {% if schedules %}
-            <div class="schedule-builder">
-                <div class="schedule-list">
-                    {% for schedule in schedules %}
-                    <div class="schedule-item">
-                        <div class="schedule-item-info">
-                            <h4>{{ schedule.name }}</h4>
-                            <p>{{ schedule.pattern }} &middot; Starting {{ schedule.start_date }} &middot; {{ schedule.parent_a }} &amp; {{ schedule.parent_b }}</p>
-                        </div>
-                        <div style="display:flex; gap:8px;">
-                            <button class="btn btn-sm btn-outline">Edit</button>
-                            <button class="btn btn-sm btn-primary">Use in Plan</button>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% else %}
-            <div class="card">
-                <div class="empty-state">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        <div class="splash-card">
+            <!-- Feature Info -->
+            <div class="splash-top">
+                <div class="splash-icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <rect x="4" y="8" width="40" height="34" rx="3" stroke="#1976D2" stroke-width="2.5" fill="#E3F2FD"/>
+                        <line x1="4" y1="16" x2="44" y2="16" stroke="#1976D2" stroke-width="2"/>
+                        <line x1="16" y1="8" x2="16" y2="42" stroke="#1976D2" stroke-width="1.5" opacity="0.3"/>
+                        <line x1="28" y1="8" x2="28" y2="42" stroke="#1976D2" stroke-width="1.5" opacity="0.3"/>
+                        <line x1="4" y1="26" x2="44" y2="26" stroke="#1976D2" stroke-width="1.5" opacity="0.3"/>
+                        <line x1="4" y1="34" x2="44" y2="34" stroke="#1976D2" stroke-width="1.5" opacity="0.3"/>
+                        <circle cx="36" cy="12" r="8" fill="#4CAF50"/>
+                        <path d="M32 12l3 3 5-5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <h2>No Saved Schedules</h2>
-                    <p>Create a new custody schedule to get started.</p>
+                </div>
+                <h1 class="splash-title">Schedule Builder</h1>
+                <p class="splash-desc">Quickly generate accurate, court-ready custody schedules in minutes. Reduce back-and-forth, minimize errors, and give clients a clear, visual plan.</p>
+
+                <!-- Calendar illustration -->
+                <div class="splash-illustration">
+                    <svg width="220" height="100" viewBox="0 0 220 100" fill="none">
+                        <!-- Calendar grid -->
+                        <rect x="0" y="0" width="220" height="100" rx="4" fill="#F5F6F8" stroke="#E0E0E0" stroke-width="1"/>
+                        <!-- Header row -->
+                        <rect x="1" y="1" width="218" height="18" rx="3" fill="#E3F2FD"/>
+                        <text x="16" y="13" font-size="8" fill="#1976D2" font-weight="600">Sun</text>
+                        <text x="48" y="13" font-size="8" fill="#1976D2" font-weight="600">Mon</text>
+                        <text x="79" y="13" font-size="8" fill="#1976D2" font-weight="600">Tue</text>
+                        <text x="110" y="13" font-size="8" fill="#1976D2" font-weight="600">Wed</text>
+                        <text x="142" y="13" font-size="8" fill="#1976D2" font-weight="600">Thu</text>
+                        <text x="176" y="13" font-size="8" fill="#1976D2" font-weight="600">Fri</text>
+                        <text x="205" y="13" font-size="8" fill="#1976D2" font-weight="600">Sat</text>
+                        <!-- Week 1 - Parent A (blue) -->
+                        <rect x="4" y="24" width="27" height="14" rx="2" fill="#1976D2" opacity="0.7"/>
+                        <rect x="35" y="24" width="27" height="14" rx="2" fill="#1976D2" opacity="0.7"/>
+                        <rect x="66" y="24" width="27" height="14" rx="2" fill="#1976D2" opacity="0.7"/>
+                        <rect x="97" y="24" width="27" height="14" rx="2" fill="#1976D2" opacity="0.5"/>
+                        <!-- Week 1 - Parent B (orange) -->
+                        <rect x="128" y="24" width="27" height="14" rx="2" fill="#FF9800" opacity="0.7"/>
+                        <rect x="159" y="24" width="27" height="14" rx="2" fill="#FF9800" opacity="0.7"/>
+                        <rect x="190" y="24" width="27" height="14" rx="2" fill="#FF9800" opacity="0.7"/>
+                        <!-- Week 2 - Parent B (orange) -->
+                        <rect x="4" y="44" width="27" height="14" rx="2" fill="#FF9800" opacity="0.7"/>
+                        <rect x="35" y="44" width="27" height="14" rx="2" fill="#FF9800" opacity="0.7"/>
+                        <rect x="66" y="44" width="27" height="14" rx="2" fill="#FF9800" opacity="0.5"/>
+                        <!-- Week 2 - Parent A (blue) -->
+                        <rect x="97" y="44" width="27" height="14" rx="2" fill="#1976D2" opacity="0.7"/>
+                        <rect x="128" y="44" width="27" height="14" rx="2" fill="#1976D2" opacity="0.7"/>
+                        <rect x="159" y="44" width="27" height="14" rx="2" fill="#1976D2" opacity="0.7"/>
+                        <rect x="190" y="44" width="27" height="14" rx="2" fill="#1976D2" opacity="0.7"/>
+                        <!-- Week 3 -->
+                        <rect x="4" y="64" width="27" height="14" rx="2" fill="#1976D2" opacity="0.5"/>
+                        <rect x="35" y="64" width="27" height="14" rx="2" fill="#1976D2" opacity="0.5"/>
+                        <rect x="66" y="64" width="27" height="14" rx="2" fill="#4CAF50" opacity="0.5"/>
+                        <rect x="97" y="64" width="27" height="14" rx="2" fill="#FF9800" opacity="0.5"/>
+                        <rect x="128" y="64" width="27" height="14" rx="2" fill="#FF9800" opacity="0.5"/>
+                        <rect x="159" y="64" width="27" height="14" rx="2" fill="#FF9800" opacity="0.5"/>
+                        <rect x="190" y="64" width="27" height="14" rx="2" fill="#1976D2" opacity="0.5"/>
+                        <!-- Week 4 -->
+                        <rect x="4" y="82" width="27" height="14" rx="2" fill="#1976D2" opacity="0.4"/>
+                        <rect x="35" y="82" width="27" height="14" rx="2" fill="#FF9800" opacity="0.4"/>
+                        <rect x="66" y="82" width="27" height="14" rx="2" fill="#FF9800" opacity="0.4"/>
+                        <rect x="97" y="82" width="27" height="14" rx="2" fill="#1976D2" opacity="0.4"/>
+                        <rect x="128" y="82" width="27" height="14" rx="2" fill="#1976D2" opacity="0.4"/>
+                        <rect x="159" y="82" width="27" height="14" rx="2" fill="#4CAF50" opacity="0.4"/>
+                        <rect x="190" y="82" width="27" height="14" rx="2" fill="#FF9800" opacity="0.4"/>
+                    </svg>
                 </div>
             </div>
-            {% endif %}
+
+            <!-- CTA Section -->
+            <div class="splash-cta">
+                <p class="splash-cta-text">We're inviting a small group of attorneys to test these features and provide feedback.</p>
+                <p class="splash-cta-question"><strong>Would you like early access?</strong></p>
+                <div class="splash-buttons">
+                    <button class="btn btn-primary splash-btn-yes" onclick="this.closest('.splash-cta').innerHTML='<p class=\'splash-thanks\'>Thanks for your interest! We\'ll be in touch soon.</p>'">
+                        <span style="margin-right:4px;">&#x1F44D;</span> Yes, I'm interested
+                    </button>
+                    <button class="btn btn-outline splash-btn-no" onclick="this.closest('.splash-cta').innerHTML='<p class=\'splash-thanks\'>No problem. You can always revisit this later.</p>'">
+                        No thanks
+                    </button>
+                </div>
+            </div>
+
+            <div class="splash-footer">
+                <em>Your feedback will directly shape how these tools are built and improved.</em>
+            </div>
         </div>
 
     </div>
