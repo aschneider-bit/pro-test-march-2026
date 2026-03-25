@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Clara — OFW Pro{% endblock %}
+
+{% block content %}
+<div class="page-layout">
+    <div class="main-content content-full" style="display:flex; justify-content:center; padding-top:48px;">
+
+        <div class="splash-card">
+            <!-- Feature Info -->
+            <div class="splash-top">
+                <h1 class="splash-title">Clara</h1>
+                <p class="splash-desc">Your AI legal assistant for family law. Select a case and ask Clara to help with documents, schedules, filings, and client insights.</p>
+
+                <!-- AI chat illustration -->
+                <div class="splash-illustration">
+                    <svg width="220" height="120" viewBox="0 0 220 120" fill="none">
+                        <!-- Chat bubbles -->
+                        <rect x="30" y="10" width="120" height="32" rx="16" fill="#122845"/>
+                        <text x="90" y="30" font-size="10" fill="#fff" text-anchor="middle" font-weight="500">Draft a parenting plan...</text>
+                        <!-- Clara response -->
+                        <rect x="70" y="52" width="130" height="32" rx="16" fill="#7FC8E5"/>
+                        <text x="135" y="72" font-size="10" fill="#122845" text-anchor="middle" font-weight="500">Here's your draft plan</text>
+                        <!-- Sparkle dots -->
+                        <circle cx="50" y="100" r="3" fill="#122845" opacity="0.3"/>
+                        <circle cx="62" y="100" r="3" fill="#122845" opacity="0.5"/>
+                        <circle cx="74" y="100" r="3" fill="#122845" opacity="0.7"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="splash-cta">
+                <p class="splash-cta-text">We're inviting a small group to test this feature and provide feedback.</p>
+                <p class="splash-cta-question"><strong>Would you like early access?</strong></p>
+                <div class="splash-buttons">
+                    <button class="btn btn-primary splash-btn-yes" onclick="this.closest('.splash-cta').innerHTML='<p class=\'splash-thanks\'>Thanks for your interest! We\'ll be in touch soon.</p>'">
+                        <span style="margin-right:4px;">&#x1F44D;</span> Yes, I'm interested
+                    </button>
+                    <button class="btn btn-outline splash-btn-no" onclick="this.closest('.splash-cta').innerHTML='<p class=\'splash-thanks\'>No problem. You can always revisit this later.</p>'">
+                        No thanks
+                    </button>
+                </div>
+            </div>
+
+            <div class="splash-footer">
+                <em>Your feedback will directly shape how these tools are built and improved.</em>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
