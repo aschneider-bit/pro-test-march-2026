@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - OFW Pro</title>
+    <link rel="stylesheet" href="./static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="./index.html" class="nav-logo">
+                <svg viewBox="0 0 32 32" fill="none">
+                    <!-- OFW asterisk/star icon -->
+                    <path d="M16 2L18.5 12.5L28 8L21 16L28 24L18.5 19.5L16 30L13.5 19.5L4 24L11 16L4 8L13.5 12.5L16 2Z" fill="#0E8DA2"></path>
+                    <circle cx="16" cy="16" r="4" fill="#fff"></circle>
+                </svg>
+                <span class="nav-logo-text">OurFamilyWizard</span>
+            </a>
+            <div class="nav-tabs">
+                <a href="./my-cases.html" class="nav-tab ">My Cases</a>
+                <a href="./messages.html" class="nav-tab ">Messages</a>
+                <a href="./custody-navigator.html" class="nav-tab ">Custody Schedule Builder</a>
+                <a href="./parenting-plan.html" class="nav-tab ">Parenting Plan Builder</a>
+            </div>
+            <div class="nav-right">
+                <button class="nav-icon-btn" title="People">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"></path></svg>
+                </button>
+                <button class="nav-icon-btn" title="Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+                </button>
+                <div class="nav-avatar" style="background:#0E8DA2">BO</div>
+            </div>
+        </div>
+    </nav>
+
+    
+<div class="page-layout">
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Families</div>
+            
+                
+                <a href="#fam-1" class="sidebar-item">
+                    <span>Gein - Gein</span>
+                    
+                </a>
+                
+                <a href="#fam-2" class="sidebar-item">
+                    <span>Markerson - Frederson</span>
+                    
+                </a>
+                
+                <a href="#fam-3" class="sidebar-item">
+                    <span>Markerson - Markerson</span>
+                    
+                </a>
+                
+                <a href="#fam-4" class="sidebar-item">
+                    <span>OFWTest-Wallner - OFWTest-Wallner</span>
+                    
+                </a>
+                
+            
+        </div>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-section">
+            <a href="#add" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+                Add Family
+            </a>
+        </div>
+
+        <div class="sidebar-section">
+            <a href="#link" class="btn btn-outline" style="width: 100%; justify-content: center;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"></path></svg>
+                Link to Existing Family
+            </a>
+        </div>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-section">
+            <a href="#" class="sidebar-item">
+                <span>Update My Profile</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Dashboard Cards Row -->
+        <div class="dashboard-cards">
+
+            <!-- Messages Card -->
+            <div class="dash-card">
+                <div class="dash-card-title">Messages</div>
+                <div class="dash-card-body">
+                    
+                    <p>You have <strong>1</strong> unread message.</p>
+                    
+                </div>
+                <div class="dash-card-link">
+                    <a href="./messages.html">Go to Messages →</a>
+                </div>
+            </div>
+
+            <!-- Access Requests Card -->
+            <div class="dash-card">
+                <div class="dash-card-title">Access Requests</div>
+                <div class="dash-card-body">
+                    <p><strong>0</strong> pending access requests.</p>
+                    <p style="font-size: 13px; color: var(--text-muted);">Requests from families will appear here.</p>
+                </div>
+                <div class="dash-card-link">
+                    <a href="#">View Requests →</a>
+                </div>
+            </div>
+
+            <!-- OFW for Practitioners Card -->
+            <div class="dash-card">
+                <div class="dash-card-title">OurFamilyWizard for Practitioners</div>
+                <div class="dash-card-body">
+                    <p>OurFamilyWizard helps practitioners stay connected with the families they serve through secure messaging, shared calendars, and expense tracking.</p>
+                </div>
+                <div class="dash-card-link">
+                    <a href="https://www.ourfamilywizard.com/practitioners" target="_blank">Learn more →</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Resources Section -->
+        <div class="resources-section card">
+            <div class="card-header">
+                <span class="card-title">Resources</span>
+            </div>
+            <div class="card-body">
+                <div class="resources-text">
+                    <h3>Welcome for Practitioners</h3>
+                    <p>
+                        As a practitioner on OurFamilyWizard, you have access to tools designed to help you
+                        support co-parenting families more effectively. Use the dashboard to manage your
+                        connected families, communicate securely through the messaging system, and stay
+                        up to date with shared calendars and expense logs.
+                    </p>
+                    <h3 style="margin-top: 16px;">Tips &amp; Tricks</h3>
+                    <p>
+                        Get the most out of OurFamilyWizard by exploring our practitioner guides. Learn how
+                        to add families to your account, review shared parenting schedules, and leverage
+                        the platform's tools to provide better support during custody and co-parenting cases.
+                    </p>
+                    <div style="margin-top: 12px;">
+                        <a href="#" class="btn btn-outline btn-sm">View Practitioner Guides</a>
+                    </div>
+                </div>
+                <div class="resources-img">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">Terms &amp; Conditions</a><span class="footer-sep">|</span>
+            <a href="#">Privacy Policy</a><span class="footer-sep">|</span>
+            <a href="#">About</a><span class="footer-sep">|</span>
+            <a href="#">Help</a><span class="footer-sep">|</span>
+            <a href="#">Contact</a>
+        </div>
+        <div class="footer-copyright">Copyright © 2000 - 2026 OurFamilyWizard.com® Patented and Patents Pending</div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-tooltip" id="chatTooltip">
+            Hi. Need any help?
+            <button class="chat-close" onclick="document.getElementById('chatTooltip').style.display='none'">×</button>
+        </div>
+        <button class="chat-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+        </button>
+    </div>
+    
+
+    
+
+</body></html>

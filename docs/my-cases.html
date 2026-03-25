@@ -1,0 +1,408 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cases - OFW Pro</title>
+    <link rel="stylesheet" href="./static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="./index.html" class="nav-logo">
+                <svg viewBox="0 0 32 32" fill="none">
+                    <!-- OFW asterisk/star icon -->
+                    <path d="M16 2L18.5 12.5L28 8L21 16L28 24L18.5 19.5L16 30L13.5 19.5L4 24L11 16L4 8L13.5 12.5L16 2Z" fill="#0E8DA2"></path>
+                    <circle cx="16" cy="16" r="4" fill="#fff"></circle>
+                </svg>
+                <span class="nav-logo-text">OurFamilyWizard</span>
+            </a>
+            <div class="nav-tabs">
+                <a href="./my-cases.html" class="nav-tab active">My Cases</a>
+                <a href="./messages.html" class="nav-tab ">Messages</a>
+                <a href="./custody-navigator.html" class="nav-tab ">Custody Schedule Builder</a>
+                <a href="./parenting-plan.html" class="nav-tab ">Parenting Plan Builder</a>
+            </div>
+            <div class="nav-right">
+                <button class="nav-icon-btn" title="People">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"></path></svg>
+                </button>
+                <button class="nav-icon-btn" title="Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+                </button>
+                <div class="nav-avatar" style="background:#0E8DA2">BO</div>
+            </div>
+        </div>
+    </nav>
+
+    
+<div class="page-layout">
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar" style="display:flex;flex-direction:column;">
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Families</div>
+        </div>
+        
+        <a href="#family-fam-1" class="sidebar-item active">
+            Gein - Gein
+        </a>
+        
+        <a href="#family-fam-2" class="sidebar-item ">
+            Markerson - Frederson
+        </a>
+        
+        <a href="#family-fam-3" class="sidebar-item ">
+            Markerson - Markerson
+        </a>
+        
+        <a href="#family-fam-4" class="sidebar-item ">
+            OFWTest-Wallner - OFWTest-Wallner
+        </a>
+        
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-section">
+            <a href="#" class="btn btn-outline btn-sm" style="width:100%;justify-content:center;margin-bottom:8px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+                Add Family
+            </a>
+            <a href="#" class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"></path></svg>
+                Link to Existing Family
+            </a>
+        </div>
+
+        <div class="sidebar-user-info" style="margin-top:auto;">
+            <a href="#">Update My Profile</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <a href="#" class="btn btn-outline">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+                + Add Family
+            </a>
+            <a href="#" class="btn btn-ghost">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"></path></svg>
+                Link to Existing Family
+            </a>
+            <div class="search-bar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9E9E9E" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+                <input type="text" placeholder="Search families or members...">
+            </div>
+        </div>
+
+        <!-- Family Groups -->
+        
+        <div class="family-group" id="family-fam-1">
+            <div class="family-header">
+                <span class="family-name">Gein - Gein</span>
+                
+                <a href="True" class="family-link">Notification settings</a>
+                
+            </div>
+            <div class="card">
+                
+                <div class="member-row">
+                    <div class="avatar" style="background:#0E8DA2">AG</div>
+                    <div class="member-info">
+                        <div>
+                            <div class="member-name">Aaron Gein</div>
+                        </div>
+                        <div>
+                            <div class="member-meta">Subscription: Current</div>
+                            
+                            <div class="member-meta-sub">Expires: 12/2026</div>
+                            
+                        </div>
+                        <div>
+                            <div class="member-meta">Access: Requested</div>
+                            
+                            <div class="member-meta-sub">on 7/15/2025 by 3 family</div>
+                            
+                        </div>
+                    </div>
+                    <div class="member-actions">
+                        
+                        <button class="btn-icon" title="More actions">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="member-row">
+                    <div class="avatar" style="background:#4CAF50">JG</div>
+                    <div class="member-info">
+                        <div>
+                            <div class="member-name">Jordan Gein</div>
+                        </div>
+                        <div>
+                            <div class="member-meta">Subscription: Current</div>
+                            
+                            <div class="member-meta-sub">Expires: 12/2026</div>
+                            
+                        </div>
+                        <div>
+                            <div class="member-meta">Access: Requested</div>
+                            
+                            <div class="member-meta-sub">on 7/15/2025 by 3 family</div>
+                            
+                        </div>
+                    </div>
+                    <div class="member-actions">
+                        
+                        <button class="btn-icon" title="More actions">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="family-group" id="family-fam-2">
+            <div class="family-header">
+                <span class="family-name">Markerson - Frederson</span>
+                
+            </div>
+            <div class="card">
+                
+                <div class="member-row">
+                    <div class="avatar" style="background:#7B1FA2">BM</div>
+                    <div class="member-info">
+                        <div>
+                            <div class="member-name">Boris Markerson</div>
+                        </div>
+                        <div>
+                            <div class="member-meta">Subscription: Basic Volunteer</div>
+                            
+                        </div>
+                        <div>
+                            <div class="member-meta">Access: Requested</div>
+                            
+                            <div class="member-meta-sub">on 7/15/2025 by 3 family</div>
+                            
+                        </div>
+                    </div>
+                    <div class="member-actions">
+                        
+                        <button class="btn-icon" title="More actions">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="member-row">
+                    <div class="avatar" style="background:#E64A19">FF</div>
+                    <div class="member-info">
+                        <div>
+                            <div class="member-name">Fran Frederson</div>
+                        </div>
+                        <div>
+                            <div class="member-meta">Subscription: Never subscribed</div>
+                            
+                        </div>
+                        <div>
+                            <div class="member-meta">Access: Requested</div>
+                            
+                            <div class="member-meta-sub">on 7/15/2025 by 3 family</div>
+                            
+                        </div>
+                    </div>
+                    <div class="member-actions">
+                        
+                        <button class="btn-icon" title="View profile">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                        
+                        <button class="btn-icon" title="More actions">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="family-group" id="family-fam-3">
+            <div class="family-header">
+                <span class="family-name">Markerson - Markerson</span>
+                
+            </div>
+            <div class="card">
+                
+                <div class="member-row">
+                    <div class="avatar" style="background:#00796B">SM</div>
+                    <div class="member-info">
+                        <div>
+                            <div class="member-name">Stuart Markerson</div>
+                        </div>
+                        <div>
+                            <div class="member-meta">Subscription: Basic Volunteer</div>
+                            
+                        </div>
+                        <div>
+                            <div class="member-meta">Access Requested</div>
+                            
+                            <div class="member-meta-sub">on 10/14/2024 by 3 family</div>
+                            
+                        </div>
+                    </div>
+                    <div class="member-actions">
+                        
+                        <button class="btn-icon" title="More actions">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="member-row">
+                    <div class="avatar" style="background:#C2185B">FM</div>
+                    <div class="member-info">
+                        <div>
+                            <div class="member-name">Fred Markerson</div>
+                        </div>
+                        <div>
+                            <div class="member-meta">Subscription: Never subscribed</div>
+                            
+                        </div>
+                        <div>
+                            <div class="member-meta">Access: Requested</div>
+                            
+                            <div class="member-meta-sub">on 7/15/2025 by 3 family</div>
+                            
+                        </div>
+                    </div>
+                    <div class="member-actions">
+                        
+                        <button class="btn-icon" title="View profile">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                        
+                        <button class="btn-icon" title="More actions">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="family-group" id="family-fam-4">
+            <div class="family-header">
+                <span class="family-name">OFWTest-Wallner - OFWTest-Wallner</span>
+                
+                <a href="True" class="family-link">Notification settings</a>
+                
+            </div>
+            <div class="card">
+                
+                <div class="member-row">
+                    <div class="avatar" style="background:#0E8DA2">AO</div>
+                    <div class="member-info">
+                        <div>
+                            <div class="member-name">Annika OFWTest-Wallner</div>
+                        </div>
+                        <div>
+                            <div class="member-meta">Subscription: Current</div>
+                            
+                            <div class="member-meta-sub">Expires: 12/2026</div>
+                            
+                        </div>
+                        <div>
+                            <div class="member-meta">Access: Requested</div>
+                            
+                            <div class="member-meta-sub">on 7/15/2025 by 3 family</div>
+                            
+                        </div>
+                    </div>
+                    <div class="member-actions">
+                        
+                        <button class="btn-icon" title="View profile">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                        
+                        <button class="btn-icon" title="More actions">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="member-row">
+                    <div class="avatar" style="background:#388E3C">AW</div>
+                    <div class="member-info">
+                        <div>
+                            <div class="member-name">Andrea OFWTest-Wallner</div>
+                        </div>
+                        <div>
+                            <div class="member-meta">Subscription: Current</div>
+                            
+                            <div class="member-meta-sub">Expires: 12/2026</div>
+                            
+                        </div>
+                        <div>
+                            <div class="member-meta">Access: Requested</div>
+                            
+                            <div class="member-meta-sub">on 7/15/2025 by 3 family</div>
+                            
+                        </div>
+                    </div>
+                    <div class="member-actions">
+                        
+                        <button class="btn-icon" title="View profile">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                        
+                        <button class="btn-icon" title="More actions">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+
+        
+
+    </main>
+</div>
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">Terms &amp; Conditions</a><span class="footer-sep">|</span>
+            <a href="#">Privacy Policy</a><span class="footer-sep">|</span>
+            <a href="#">About</a><span class="footer-sep">|</span>
+            <a href="#">Help</a><span class="footer-sep">|</span>
+            <a href="#">Contact</a>
+        </div>
+        <div class="footer-copyright">Copyright © 2000 - 2026 OurFamilyWizard.com® Patented and Patents Pending</div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-tooltip" id="chatTooltip">
+            Hi. Need any help?
+            <button class="chat-close" onclick="document.getElementById('chatTooltip').style.display='none'">×</button>
+        </div>
+        <button class="chat-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+        </button>
+    </div>
+    
+
+    
+
+</body></html>
