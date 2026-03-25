@@ -233,6 +233,16 @@ async def messages_page(request: Request):
     })
 
 
+@app.get("/clara", response_class=HTMLResponse)
+async def clara(request: Request):
+    logger.info("Serving Clara page")
+    return templates.TemplateResponse("clara.html", {
+        "request": request,
+        "user": CURRENT_USER,
+        "active_tab": "clara",
+    })
+
+
 @app.get("/custody-navigator", response_class=HTMLResponse)
 async def custody_navigator(request: Request):
     logger.info("Serving Custody Navigator")
