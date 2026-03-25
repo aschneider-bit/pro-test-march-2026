@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parenting Plan Builder — OFW Pro</title>
+    <title>Clara — OFW Pro</title>
     <link rel="stylesheet" href="./static/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -24,9 +24,9 @@
             <div class="nav-tabs">
                 <a href="./my-cases.html" class="nav-tab ">My Cases</a>
                 <a href="./messages.html" class="nav-tab ">Messages</a>
-                <a href="./clara.html" class="nav-tab ">Clara <span class="nav-badge-new">NEW</span></a>
+                <a href="./clara.html" class="nav-tab active">Clara <span class="nav-badge-new">NEW</span></a>
                 <a href="./custody-navigator.html" class="nav-tab ">Custody Schedule Builder</a>
-                <a href="./parenting-plan.html" class="nav-tab active">Parenting Plan Builder</a>
+                <a href="./parenting-plan.html" class="nav-tab ">Parenting Plan Builder</a>
             </div>
             <div class="nav-right">
                 <button class="nav-icon-btn" title="People">
@@ -47,37 +47,22 @@
         <div class="splash-card">
             <!-- Feature Info -->
             <div class="splash-top">
-                <h1 class="splash-title">Parenting Plan Builder</h1>
-                <p class="splash-desc">Collect client information through a guided intake and automatically generate a comprehensive, customizable parenting plan. Streamline drafting while maintaining the flexibility you need.</p>
+                <h1 class="splash-title">Clara</h1>
+                <p class="splash-desc">Your AI legal assistant for family law. Select a case and ask Clara to help with documents, schedules, filings, and client insights.</p>
 
+                <!-- AI chat illustration -->
                 <div class="splash-illustration">
-                    <svg width="180" height="140" viewBox="0 0 180 140" fill="none">
-                        <!-- Shadow doc behind -->
-                        <rect x="48" y="8" width="90" height="120" rx="5" fill="#D8DEE8"></rect>
-                        <!-- Main document -->
-                        <rect x="38" y="2" width="90" height="120" rx="5" fill="#fff" stroke="#122845" stroke-width="1.8"></rect>
-                        <!-- Folded corner -->
-                        <path d="M103 2v20h25" stroke="#122845" stroke-width="1.5" fill="#D8DEE8"></path>
-                        <path d="M103 2l25 20" stroke="#122845" stroke-width="0" fill="#D8DEE8"></path>
-                        <!-- Title -->
-                        <rect x="50" y="18" width="44" height="6" rx="2" fill="#122845"></rect>
-                        <!-- Text lines -->
-                        <rect x="50" y="32" width="66" height="3.5" rx="1.5" fill="#C5CEDB"></rect>
-                        <rect x="50" y="40" width="58" height="3.5" rx="1.5" fill="#C5CEDB"></rect>
-                        <rect x="50" y="48" width="62" height="3.5" rx="1.5" fill="#C5CEDB"></rect>
-                        <line x1="50" y1="58" x2="116" y2="58" stroke="#E0E0E0" stroke-width="1"></line>
-                        <rect x="50" y="64" width="66" height="3.5" rx="1.5" fill="#C5CEDB"></rect>
-                        <rect x="50" y="72" width="50" height="3.5" rx="1.5" fill="#C5CEDB"></rect>
-                        <rect x="50" y="80" width="60" height="3.5" rx="1.5" fill="#C5CEDB"></rect>
-                        <line x1="50" y1="90" x2="116" y2="90" stroke="#E0E0E0" stroke-width="1"></line>
-                        <rect x="50" y="96" width="66" height="3.5" rx="1.5" fill="#C5CEDB"></rect>
-                        <rect x="50" y="104" width="42" height="3.5" rx="1.5" fill="#C5CEDB"></rect>
-                        <!-- Stars -->
-                        <path d="M18 28l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" fill="#FFC107"></path>
-                        <path d="M155 60l2 4.5 5 .7-3.5 3.5.8 5-4.3-2.3-4.3 2.3.8-5-3.5-3.5 5-.7z" fill="#FFC107"></path>
-                        <path d="M8 70l1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.6-3.1 1.6.6-3.5L3 73.5l3.5-.5z" fill="#FFC107" opacity="0.6"></path>
-                        <path d="M160 20l1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.6-3.1 1.6.6-3.5-2.5-2.5 3.5-.5z" fill="#FFC107" opacity="0.6"></path>
-                        <path d="M145 100l1 2 2.5.3-1.8 1.8.4 2.5-2.1-1.1-2.1 1.1.4-2.5-1.8-1.8 2.5-.3z" fill="#FFC107" opacity="0.4"></path>
+                    <svg width="220" height="120" viewBox="0 0 220 120" fill="none">
+                        <!-- Chat bubbles -->
+                        <rect x="30" y="10" width="120" height="32" rx="16" fill="#122845"></rect>
+                        <text x="90" y="30" font-size="10" fill="#fff" text-anchor="middle" font-weight="500">Draft a parenting plan...</text>
+                        <!-- Clara response -->
+                        <rect x="70" y="52" width="130" height="32" rx="16" fill="#7FC8E5"></rect>
+                        <text x="135" y="72" font-size="10" fill="#122845" text-anchor="middle" font-weight="500">Here's your draft plan</text>
+                        <!-- Sparkle dots -->
+                        <circle cx="50" y="100" r="3" fill="#122845" opacity="0.3"></circle>
+                        <circle cx="62" y="100" r="3" fill="#122845" opacity="0.5"></circle>
+                        <circle cx="74" y="100" r="3" fill="#122845" opacity="0.7"></circle>
                     </svg>
                 </div>
             </div>
